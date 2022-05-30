@@ -14,4 +14,4 @@ RUN npm run build
 FROM nginx AS runtime
 
 COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=sdk /usr/src/app/dist/Ui /usr/share/nginx/html
+COPY --from=sdk /usr/src/app/dist/ /usr/share/nginx/html
