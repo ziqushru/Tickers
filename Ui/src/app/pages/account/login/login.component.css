@@ -1,0 +1,27 @@
+
+h1 {
+    font-size: 1.5em;
+    color: beige;
+}
+
+.email {
+    background: beige;
+    border: #ccc 1px solid;
+    border-bottom: #ccc 2px solid;
+    padding: 8px;
+    width: 250px;
+    color: #212529;
+    margin-top: 10px;
+    font-size: 1em;
+    border-radius: 4px;
+}
+
+.password {
+    border-radius: 4px;
+    background: beige;
+    color: #212529;
+    border: #ccc 1px solid;
+    padding: 8px;
+    width: 250px;
+    font-size: 1em;
+}

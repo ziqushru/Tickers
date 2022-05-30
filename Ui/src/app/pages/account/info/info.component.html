@@ -1,0 +1,23 @@
+<div>
+    <p>Account Info</p>
+    <form>
+        <div class="form-group">
+            <input type="text" placeholder="Name" [formControl]="this.name" />
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="Surname" [formControl]="this.surname" />
+        </div>
+        <div class="form-group">
+            <input type="text" placeholder="Email" [formControl]="this.email" />
+        </div>
+        <div class="form-group">
+            <input type="password" placeholder="Password" [formControl]="this.password" />
+        </div>
+        <div class="form-group">
+            <button class="google-button" role="button" (submit)="this.save()">
+                <i-bs name="credit-card" style="margin-right: 10px"></i-bs>
+                Save
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <img
+          src="assets/ticket.png"
+          height="15"
+          alt="Tickers"
+          loading="lazy"
+        />
+      </a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/events">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/accounts">Accounts</a>
+        </li>
+      </ul>
+    </div>
+    <div ngbDropdown class="d-inline-block">
+      <i-bs ngbDropdownToggle name="person-bounding-box"></i-bs>
+      <div ngbDropdownMenu style="margin-left: -120px">
+        <button ngbDropdownItem routerLink="/account/info">Info</button>
+        <button ngbDropdownItem routerLink="/account/settings">Settings</button>
+        <div class="dropdown-divider"></div>
+        <button ngbDropdownItem routerLink="/account/logout">LogOut</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container container-demo">
+  <router-outlet></router-outlet>
+</div>

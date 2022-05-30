@@ -1,0 +1,26 @@
+<div>
+    <h2>{{this.event.title}}</h2>
+    <h3>{{this.event.date}}</h3>
+    <h3>{{this.event.place}}</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Group</th>
+                <th scope="col">Price</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Order</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ticket_type of this.ticket_types | async; index as i">
+                <td>{{ticket_type.group_description}}</td>
+                <td>{{ticket_type.price}}</td>
+                <td><input type="number" [(ngModel)]="ticket_type.amount"></td>
+                <td>{{ticket_type.amount * ticket_type.price}}</td>
+                <td><i-bs name="credit-card"></i-bs></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

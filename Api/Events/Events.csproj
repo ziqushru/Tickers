@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Company>Iason Koutoulias</Company>
+        <Authors>Iason Koutoulias</Authors>
+        <Title>Events</Title>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FastEndpoints" Version="4.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Entities\Entities.csproj" />
+      <ProjectReference Include="..\Repository\Repository.csproj" />
+    </ItemGroup>
+
+</Project>

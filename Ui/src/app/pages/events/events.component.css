@@ -1,0 +1,12 @@
+.row-future-events {
+    -webkit-box-shadow: -2px -1px 15px 7px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: -3px -2px 30px 14px rgba(0, 0, 0, 0.425);
+    box-shadow: 0 0 45px 21px;
+    background-color: #324534;
+    color: beige;
+    height: 100vh;
+}
+
+col {
+    text-align: center;
+}

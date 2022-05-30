@@ -1,0 +1,77 @@
+<div class="row row-future-events">
+    <div class="col">
+        <h2>This Week</h2>
+        <ngb-carousel *ngIf="this.events_week">
+            <ng-template ngbSlide *ngFor="let event of this.events_week | async; index as i">
+                <div class="picsum-img-wrapper">
+                    <img [src]="event.logo" alt="{{event.title}}">
+                </div>
+                <div class="carousel-caption">
+                    <h3>{{event.title}}</h3>
+                    <p>{{event.date.toLocaleDateString()}} {{event.date.getHours()}}:{{event.date.getMinutes()}}</p>
+                    <p>{{event.place}}</p>
+                    <p>Available Tickets: {{event.available_tickets}}</p>
+                    <button class="google-button" role="button" routerLink="/events/{{event.id}}/tickets">
+                        <i-bs name="credit-card" style="margin-right: 10px"></i-bs>
+                        Order Now
+                    </button>
+                </div>
+            </ng-template>
+        </ngb-carousel>
+
+        <hr class="solid">
+
+        <div>
+            <h3>This Month</h3>
+            <ngb-carousel *ngIf="this.events_month">
+                <ng-template ngbSlide *ngFor="let event of this.events_month | async; index as i">
+                    <div class="picsum-img-wrapper">
+                        <img [src]="event.logo" alt="{{event.title}}">
+                    </div>
+                    <div class="carousel-caption">
+                        <h3>{{event.title}}</h3>
+                        <p>{{event.date.toLocaleDateString()}} {{event.date.getHours()}}:{{event.date.getMinutes()}}</p>
+                        <p>{{event.place}}</p>
+                        <p>Available Tickets: {{event.available_tickets}}</p>
+                        <button class="google-button" role="button" routerLink="/events/{{event.id}}/tickets">
+                            <i-bs name="credit-card" style="margin-right: 10px"></i-bs>
+                            Order Now
+                        </button>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>
+    <div class="col">
+        <h3>All</h3>
+        <form>
+            <div class="mb-3 row">
+                <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Search Everywhere:</label>
+                <div class="col-xs-3 col-sm-auto">
+                    <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter">
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Available Tickets</th>
+                    <th scope="col">Order</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let event of this.events_all | async; index as i">
+                    <td><ngb-highlight [result]="event.title" [term]="filter.value"></ngb-highlight></td>
+                    <td><ngb-highlight [result]="event.date.toLocaleDateString()+' '+event.date.getHours()+':'+event.date.getMinutes()" [term]="filter.value"></ngb-highlight></td>
+                    <td><ngb-highlight [result]="event.place" [term]="filter.value"></ngb-highlight></td>
+                    <td><ngb-highlight [result]="event.available_tickets | number" [term]="filter.value"></ngb-highlight></td>
+                    <td><i-bs name="credit-card" [routerLink]="['/events', event.id, 'tickets']"></i-bs></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

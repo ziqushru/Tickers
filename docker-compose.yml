@@ -1,0 +1,105 @@
+version: "3.9"
+
+services:
+    rvrs-prx:
+        build:
+            context: ./RvrsPrx
+        image: tickers/rvrs-prx
+        restart: always
+        ports:
+            - 80:80
+            - 443:443
+        env_file:
+            - ./config.env
+        volumes:
+            - tickers-ssl:/etc/letsencrypt
+            - certbot-acme-challenge:/var/www/certbot
+            - tickers-rvrs-prx-conf:/etc/nginx/sites
+            - ./Vhosts:/etc/nginx/vhosts
+            - ./html:/var/www/html
+        networks:
+            - backend
+            - frontend
+    
+    certbot:
+        build:
+            context: ./Certbot
+        image: tickers/certbot
+        env_file:
+            - ./config.env
+        volumes:
+            - tickers-ssl:/etc/letsencrypt
+            - certbot-acme-challenge:/var/www/certbot
+        networks:
+            - backend
+
+    cron:
+        build:
+            context: ./Cron
+        image: tickers/cron
+        environment:
+            COMPOSE_PROJECT_NAME: "${COMPOSE_PROJECT_NAME}"
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./:/workdir:ro
+#        depends_on:
+#            - rvrs-prx
+#            - certbot
+#
+    db:
+        image: mcr.microsoft.com/mssql/server
+        restart: always
+        ports:
+            - 1433:1433
+        environment:
+            - ACCEPT_EULA=Y
+            - TZ=Europe/Athens
+            - MSSQL_SA_PASSWORD=Ena1dio2tria3!
+            - MSSQL_COLLATION=Greek_CI_AS
+            - MSSQL_PID=Developer
+        volumes:
+            - tickers-db:/var/opt/mssql/data
+        networks:
+            - backend
+        user: root
+ 
+    api:
+        build:
+            context: ./Api
+        image: tickers/api
+        restart: always
+        environment:
+            - ASPENETCORE_ENVIRONMENT=Staging
+            - ASPNETCORE_URLS=https://+;http://+
+            - ASPNETCORE_HTTPS_PORT=443
+        volumes:
+            - tickers-ssl:/https:ro
+        networks:
+            - backend
+        depends_on:
+            - db
+
+    ui:
+       build:
+           context: ./Ui
+       image: tickers/ui
+       restart: always
+       volumes:
+           - tickers-ssl:/etc/nginx/sites/ssl
+       networks:
+           - frontend
+
+networks:
+   backend:
+        driver: bridge
+   frontend:
+        driver: bridge
+
+volumes:
+    tickers-rvrs-prx-conf:
+        external: true
+    tickers-ssl:
+        external: true
+    tickers-db:
+        external: true
+    certbot-acme-challenge:
